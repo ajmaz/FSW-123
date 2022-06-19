@@ -1,0 +1,8 @@
+li {
+    list-style-type: none;
+    font-weight: bold;
+    margin: .5em;
+}
+input{
+    margin: .5em;
+}
