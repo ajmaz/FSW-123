@@ -1,28 +1,81 @@
 import React, { useState } from 'react';
-import {TodosArr} from "./Store"
-//components
-import Header from "./Header";
-import ToDoList from './TodoList';
+import './components/Todo.css';
+import { TodosArr } from "./components/Store"
+import { v4 as uuidv4 } from "uuid"
+import TodoList from './components/TodoList'
 
-import './App.css';
+
+
+function TodoForm({ addTodo }) {
+    const [value, setValue] = useState("");
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        if (!value) {
+            alert("Todo is Empty");
+            return
+        }
+
+        addTodo(value);
+        setValue("")
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+
+            <input
+                type="text"
+                className="input"
+                value={value}
+                placeholder="Add a new task"
+                onChange={e => setValue(e.target.value)}
+            />
+            <button className="submitBtn" onClick={handleSubmit}> Submit </button>
+        </form>
+    );
+}
+
+
+
+
+
+
+
 
 function App() {
-  const [toDoList, setToDoList] = useState(TodosArr);
+    const [todos, setTodos] = useState(TodosArr);
 
+    const addTodo = text => {
+        const newTasks = [...todos, { text, completed: false, id: uuidv4() }];
+        setTodos(newTasks);
+    };
 
-  const isCompleted = (id) => {
-    let mapped = toDoList.map(task => {
-      return task.id == id ? { ...task, complete: !task.complete } : { ...task};
-    });
-    setToDoList(mapped);
-  }
+    const completedTodo = id => {
+        const newTasks = [...todos];
+        newTasks[id].completed = true;
+        setTodos(newTasks);
+    };
 
-  return (
-    <div className="App">
-      <Header />
-      <ToDoList toDoList={toDoList} />
-    </div>
-  );
+    const deleteTodo = id => {
+        const newTasks = [...todos];
+        newTasks.splice(id, 1);
+        setTodos(newTasks);
+    };
+
+    return (
+        <div className="todo-container">
+            <div className="header">MY TO-DO LIST</div>
+            <div className="create-task" >
+                <TodoForm
+                    addTodo={addTodo} />
+            </div>
+            <TodoList
+                todos={todos}
+                completeTask={completedTodo}
+                removeTask={deleteTodo} />
+
+        </div>
+    );
 }
 
 export default App;

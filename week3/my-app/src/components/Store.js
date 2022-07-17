@@ -4,20 +4,17 @@ export const TodosArr = [
         {
             id: uuidv4(),
             text: "Goto gym",
-            isComplete: true
+            completed: false
         },
         {
             id: uuidv4(),
             text: "Do laundry",
-            isComplete: true
+            completed: false
         },
         {
             id: uuidv4(),
             text: "Food shopping",
-            isComplete: true
+            completed: false
         }
     ]
     
-
-    
-     
