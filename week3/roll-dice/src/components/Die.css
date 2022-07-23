@@ -1,0 +1,9 @@
+.Die {
+    background-color: blue;
+    border: 1px solid black;
+    height: 50px;
+    width: 50px;
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+}
